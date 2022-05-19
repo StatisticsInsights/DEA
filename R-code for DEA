@@ -1,0 +1,44 @@
+data=read.csv(file.choose())
+attach(data)
+x=cbind(input the input variables)
+y=cbind(input the output variables)
+
+#vrs input oriented
+bcc=dea(x,y,RTS = "vrs",ORIENTATION = "in")
+summary(bcc)
+efficiency=eff(bcc)
+s_l=slack(x,y,bcc)
+s_info=data.frame(eff(bcc),eff(s_l),s_l$slack, s_l$sx,s_l$sy,lambda(s_l))
+dea.plot(x,y,RTS="vrs",ORIENTATION = "in",main="VRS Input Oriented",pch=12, col="Red")
+bcc_bootstrap1=dea.boot(x,y,NREP=2000,RTS="vrs", ORIENTATION = "in",alpha = 0.5)
+bcc_bootstrap2=dea.boot(x,y,NREP=2000,RTS="vrs", ORIENTATION = "in",alpha = 0.01)
+
+#vrs output oriented
+bcc1=dea(x,y,RTS = "vrs",ORIENTATION = "out")
+summary(bcc1)
+efficiency=eff(bcc1)
+s_l1=slack(x,y,bcc1)
+s_info1=data.frame(eff(bcc),eff(s_l1),s_l1$slack, s_l1$sx,s_l1$sy,lambda(s_l1))
+dea.plot(x,y,RTS="vrs",ORIENTATION = "out",main="VRS Output Oriented",pch=12, col="Red")
+bcc_bootstrap3=dea.boot(x,y,NREP=2000,RTS="vrs", ORIENTATION = "out",alpha = 0.5)
+
+#crs input oriented
+ccr=dea(x,y,RTS = "vrs",ORIENTATION = "in")
+summary(ccr)
+efficiency=eff(ccr)
+s_l2=slack(x,y,ccr)
+s_info2=data.frame(eff(ccr),eff(s_l2),s_l2$slack, s_l2$sx,s_l2$sy,lambda(s_l2))
+dea.plot(x,y,RTS="crs",ORIENTATION = "in",main="CRS Input Oriented",pch=12, col="Red")
+bcc_bootstrap5=dea.boot(x,y,NREP=2000,RTS="crs", ORIENTATION = "in",alpha = 0.5)
+bcc_bootstrap6=dea.boot(x,y,NREP=2000,RTS="crs", ORIENTATION = "in",alpha = 0.01)
+
+#crs output oriented
+ccr1=dea(x,y,RTS = "vrs",ORIENTATION = "out")
+summary(ccr1)
+efficiency=eff(ccr1)
+s_l3=slack(x,y,ccr1)
+s_info3=data.frame(eff(ccr1),eff(s_l3),s_l3$slack, s_l3$sx,s_l3$sy,lambda(s_l3))
+dea.plot(x,y,RTS="crs",ORIENTATION = "out",main="CRS Output Oriented",pch=12, col="Red")
+bcc_bootstrap7=dea.boot(x,y,NREP=2000,RTS="crs", ORIENTATION = "out",alpha = 0.5)
+bcc_bootstrap8=dea.boot(x,y,NREP=2000,RTS="crs", ORIENTATION = "out",alpha = 0.01)
+
